@@ -4,7 +4,7 @@ class AccountsController < ApplicationController
   end
 
   def create
-    account = Account.create(account_params)
+    Account.create_with_admin_user(account: account_params, user: user_params)
     redirect_to accounts_path
   end
 
@@ -12,5 +12,9 @@ class AccountsController < ApplicationController
 
   def account_params
     params.require(:account).permit(:email, :subdomain)
+  end
+
+  def user_params
+    params.require(:user).permit(:email, :password, :password_confirmation)
   end
 end

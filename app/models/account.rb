@@ -15,10 +15,12 @@ class Account < ApplicationRecord
   # #################
 
   class << self
-    def create_with_admin_user(params)
+    def create_with_user(params)
       Account.create(params[:account]).tap do |account|
+        User.create(params[:user]).tap do |user|
+          AccountUser.create(user: user, account: account)
+        end
         account.switch_tenant!
-        User.create(params[:user].merge(admin: true))
       end
     end
   end

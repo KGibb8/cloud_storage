@@ -2,6 +2,8 @@ class Record < ApplicationRecord
   belongs_to :directory
   belongs_to :user
 
+  scope :user, ->(user_id) { where user_id: user_id }
+
   before_validation :search_for_owner
 
   validates_presence_of :user, :directory

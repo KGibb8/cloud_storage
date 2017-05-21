@@ -2,9 +2,11 @@ class Directory < ApplicationRecord
   belongs_to :user
 
   belongs_to :parent, class_name: 'Directory', foreign_key: :directory_id, inverse_of: :children, required: false
-  has_many :children, class_name: 'Directory', foreign_key: :directory_id, inverse_of: :parent
+  has_many :children, class_name: 'Directory', foreign_key: :directory_id, inverse_of: :parent, dependent: :destroy
 
-  has_many :records
+  has_many :records, dependent: :destroy
+
+  scope :user, ->(user_id) { where(user_id: user_id) }
 
   before_validation :search_for_owner
 
@@ -20,7 +22,7 @@ class Directory < ApplicationRecord
     tree_node.tap do |node|
       unless children.empty?
         children.each do |child|
-          node[:children] << child.recurse
+          node['children'] << child.recurse
         end
       end
     end
@@ -29,7 +31,7 @@ class Directory < ApplicationRecord
   private
 
   def tree_node
-    attributes.merge(records: records_attributes, children: [])
+    attributes.merge('records' => records_attributes, 'children' => [])
   end
 
   def records_attributes

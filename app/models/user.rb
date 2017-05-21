@@ -4,7 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :directories
   has_one :root, -> { where(directory_id: nil) }, class_name: 'Directory'
+
+  has_many :directories
+  has_many :records
 
 end

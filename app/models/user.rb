@@ -5,9 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :directories
-
-  def root
-    directories.where("directory_id IS NULL AND user_id = ?", id).first
-  end
+  has_one :root, -> { where(directory_id: nil) }, class_name: 'Directory'
 
 end

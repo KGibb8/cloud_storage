@@ -1,6 +1,4 @@
 class AccountsController < ApplicationController
-  before_action :find_account, only: [:show]
-  before_action :authenticate_user!
 
   def index
     @accounts = Account.all
@@ -22,7 +20,6 @@ class AccountsController < ApplicationController
   end
 
   def show
-
   end
 
   private
@@ -33,10 +30,6 @@ class AccountsController < ApplicationController
 
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation)
-  end
-
-  def find_account
-    @account = Account.find(params[:id])
   end
 
 end

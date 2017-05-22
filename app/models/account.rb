@@ -1,5 +1,8 @@
 class Account < ApplicationRecord
 
+  has_many :account_users
+  has_many :users, through: :account_users
+
   after_create :create_tenant
   after_destroy :remove_tenant
 
@@ -17,8 +20,10 @@ class Account < ApplicationRecord
   class << self
     def create_with_user(params)
       Account.create(params[:account]).tap do |account|
+        return unless account
         User.create(params[:user]).tap do |user|
-          AccountUser.create(user: user, account: account)
+          return unless user
+          account.account_users.create user: user
         end
         account.switch_tenant!
       end

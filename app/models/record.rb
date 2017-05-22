@@ -8,6 +8,10 @@ class Record < ApplicationRecord
 
   validates_presence_of :user, :directory
 
+  has_attached_file :attachment
+
+  do_not_validate_attachment_file_type :attachment
+
   private
 
   def search_for_owner

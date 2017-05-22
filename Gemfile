@@ -24,6 +24,7 @@ gem 'sidekiq'
 gem 'haml-rails'
 gem 'devise'
 gem 'apartment'
+gem 'paperclip'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

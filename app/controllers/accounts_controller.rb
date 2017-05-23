@@ -9,13 +9,13 @@ class AccountsController < ApplicationController
       account = Account.create(account_params)
       if account.valid?
         AccountUser.create(account: account, user: current_user)
-        redirect_to account_path(account)
+        redirect_to subdomain: account.subdomain, controller: :accounts, action: :show
       else
         redirect_to accounts_path
       end
     else
       account = Account.create_with_user(account: account_params, user: user_params)
-      redirect_to account_path(account)
+      redirect_to subdomain: account.subdomain, controller: :accounts, action: :show
     end
   end
 

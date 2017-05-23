@@ -19,12 +19,13 @@ class Account < ApplicationRecord
 
   class << self
     def create_with_user(params)
-      # %%TODO%% We want to rollback the Account if the User fails to build
-      Account.create(params[:account]).tap do |account|
-        return unless account
-        User.create(params[:user]).tap do |user|
-          return unless user
+      ActiveRecord::Base.transaction do
+        account = Account.new(params[:account])
+        user = User.new(params[:user])
+        if user.save && account.save
           account.account_users.create user: user
+        else
+          raise ActiveRecord::Rollback, "AccountErrors: #{account.errors.join(', ')}, UserErrors: #{user.errors.join(', ')}"
         end
       end
     end

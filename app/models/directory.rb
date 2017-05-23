@@ -1,5 +1,5 @@
 class Directory < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, required: false
 
   belongs_to :parent, class_name: 'Directory', foreign_key: :directory_id, inverse_of: :children, required: false
   has_many :children, class_name: 'Directory', foreign_key: :directory_id, inverse_of: :parent, dependent: :destroy
@@ -10,7 +10,7 @@ class Directory < ApplicationRecord
 
   before_validation :search_for_owner
 
-  validates_presence_of :user
+  # validates_presence_of :user
 
   validate :singularity_of_root
 
@@ -45,7 +45,7 @@ class Directory < ApplicationRecord
   # ##############
 
   def singularity_of_root
-    self.errors.add(:singularity_of_root, 'This user already has a root directory') if user.root.present? && directory_id.nil?
+    self.errors.add(:singularity_of_root, 'Already has a root directory') if Directory.any? && directory_id.nil?
   end
 
   # #########

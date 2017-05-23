@@ -9,13 +9,18 @@ class AccountsController < ApplicationController
       account = Account.create(account_params)
       if account.valid?
         AccountUser.create(account: account, user: current_user)
-        redirect_to subdomain: account.subdomain, controller: :accounts, action: :show
+        redirect_to root_url(subdomain: account.subdomain)
       else
         redirect_to accounts_path
       end
     else
       account = Account.create_with_user(account: account_params, user: user_params)
-      redirect_to subdomain: account.subdomain, controller: :accounts, action: :show
+      unless account.nil?
+        redirect_to root_url(subdomain: account.subdomain)
+      else
+        flash[:errors] = 'Account or User could not be created'
+        redirect_to root_path
+      end
     end
   end
 

@@ -1,14 +1,4 @@
-class SubdomainPresent
-  def self.matches?(request)
-    request.subdomain.present?
-  end
-end
-
-class SubdomainAbsent
-  def self.matches?(request)
-    request.subdomain.blank?
-  end
-end
+require "#{Rails.root}/app/lib/subdomain_matcher"
 
 Rails.application.routes.draw do
 
@@ -16,6 +6,9 @@ Rails.application.routes.draw do
 
   constraints SubdomainPresent do
     root to: 'accounts#show'
+    resources :accounts, only: [:update, :destroy]
+    resources :directories, only: [:create, :update, :destroy]
+    resources :records, only: [:create, :update, :destroy]
   end
 
   constraints SubdomainAbsent do

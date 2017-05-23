@@ -3,15 +3,11 @@ class Account < ApplicationRecord
   has_many :account_users
   has_many :users, through: :account_users
 
-  after_create :create_tenant
+  after_create :create_tenant, :create_root_directory
   after_destroy :remove_tenant
 
   validates_presence_of :subdomain, :email
   validates_uniqueness_of :subdomain, :email
-
-  def switch_tenant!
-    Apartment::Tenant.switch!(subdomain)
-  end
 
   # #################
   # # Class Methods #
@@ -36,6 +32,12 @@ class Account < ApplicationRecord
 
   def create_tenant
     Apartment::Tenant.create(subdomain)
+  end
+
+  def create_root_directory
+    switch_tenant!(subdomain)
+    Directory.create
+    switch_tenant!('public')
   end
 
   def remove_tenant

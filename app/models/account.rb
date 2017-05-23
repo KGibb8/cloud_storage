@@ -19,13 +19,13 @@ class Account < ApplicationRecord
 
   class << self
     def create_with_user(params)
+      # %%TODO%% We want to rollback the Account if the User fails to build
       Account.create(params[:account]).tap do |account|
         return unless account
         User.create(params[:user]).tap do |user|
           return unless user
           account.account_users.create user: user
         end
-        account.switch_tenant!
       end
     end
   end

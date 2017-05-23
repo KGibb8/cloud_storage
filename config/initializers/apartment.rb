@@ -1,11 +1,9 @@
 # require 'apartment/elevators/generic'
 # require 'apartment/elevators/domain'
 require 'apartment/elevators/subdomain'
-# require 'apartment/elevators/first_subdomain'
 
-#
 # Apartment Configuration
-#
+
 Apartment.configure do |config|
   config.excluded_models = %w{ Account User AccountUser }
 
@@ -44,6 +42,8 @@ Apartment.configure do |config|
   # config.prepend_environment = !Rails.env.production?
 end
 
+Apartment::Elevators::Subdomain.excluded_subdomains = ['www', 'app', 'public']
+
 # Setup a custom Tenant switching middleware. The Proc should return the name of the Tenant that
 # you want to switch to.
 # Rails.application.config.middleware.use 'Apartment::Elevators::Generic', lambda { |request|
@@ -51,5 +51,5 @@ end
 # }
 
 # Rails.application.config.middleware.use 'Apartment::Elevators::Domain'
-Rails.application.config.middleware.use 'Apartment::Elevators::Subdomain'
+# Rails.application.config.middleware.use 'Apartment::Elevators::Subdomain'
 # Rails.application.config.middleware.use 'Apartment::Elevators::FirstSubdomain'

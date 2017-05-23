@@ -50,6 +50,10 @@ Apartment::Elevators::Subdomain.excluded_subdomains = ['www', 'app', 'public']
 #   request.host.split('.').first
 # }
 
+
 # Rails.application.config.middleware.use 'Apartment::Elevators::Domain'
-# Rails.application.config.middleware.use 'Apartment::Elevators::Subdomain'
+Rails.application.config.middleware.use Apartment::Elevators::Subdomain
 # Rails.application.config.middleware.use 'Apartment::Elevators::FirstSubdomain'
+
+require "#{Rails.root}/app/middleware/apartment/rescued_apartment_middleware"
+Apartment::Elevators::Subdomain.prepend RescuedApartmentMiddleware

@@ -25,8 +25,9 @@ class Account < ApplicationRecord
         if user.save && account.save
           account.account_users.create user: user
         else
-          raise ActiveRecord::Rollback, "AccountErrors: #{account.errors.join(', ')}, UserErrors: #{user.errors.join(', ')}"
+          raise ActiveRecord::Rollback, "AccountErrors: #{account.errors}, UserErrors: #{user.errors}"
         end
+        account
       end
     end
   end

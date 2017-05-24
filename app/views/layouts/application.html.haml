@@ -10,6 +10,12 @@
     - if flash.any?
       - flash.each do |k, v|
         %div{ id: "alert-#{k}" }= v
-    - if current_user
-      %p Logged in as user #{current_user.id}
+    %div{style: 'float:left'}
+      - if current_user
+        %p Logged in as user #{current_user.id}
+    %div{style: 'float:right'}
+      - if current_user
+        = link_to 'Log out', destroy_user_session_path, method: :delete
+    %br
+    %br
     = yield

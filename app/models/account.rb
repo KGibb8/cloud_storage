@@ -1,6 +1,6 @@
 class Account < ApplicationRecord
 
-  has_many :account_users
+  has_many :account_users, dependent: :destroy
   has_many :users, through: :account_users
 
   after_create :create_tenant, :create_root_directory
@@ -23,7 +23,7 @@ class Account < ApplicationRecord
         else
           raise ActiveRecord::Rollback, "AccountErrors: #{account.errors}, UserErrors: #{user.errors}"
         end
-        account
+        { account: account, user: user }
       end
     end
   end

@@ -25,6 +25,7 @@ gem 'haml-rails'
 gem 'devise'
 gem 'apartment'
 gem 'paperclip'
+gem 'font-awesome-rails'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

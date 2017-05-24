@@ -7,4 +7,7 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
+    - if flash.any?
+      - flash.each do |k, v|
+        %div{ id: "alert-#{k}" }= v
     = yield

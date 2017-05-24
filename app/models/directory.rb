@@ -52,6 +52,8 @@ class Directory < ApplicationRecord
   # # Hooks #
   # #########
 
+  # %%TODO%% Currently sets owned based on parent folder struture.
+  # This will change if users take ownership of account directories.
   def search_for_owner
     unless directory_id.nil?
       current_directory = self

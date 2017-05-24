@@ -1,5 +1,4 @@
 module RescuedApartmentMiddleware
-
   def call(env)
     begin
       super
@@ -8,5 +7,4 @@ module RescuedApartmentMiddleware
       return [404, {"Content-Type" => "text/html"}, ["#{File.read(Rails.root.to_s + '/public/404.html')}"] ]
     end
   end
-
 end

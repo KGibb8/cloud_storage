@@ -3,19 +3,37 @@ require "#{Rails.root}/app/lib/subdomain_matcher"
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
-  before_action :current_account, if: Proc.new { SubdomainPresent.matches?(request) }
-  before_action :reset_current_account, if: Proc.new { SubdomainAbsent.matches?(request) }
+  before_action :current_account, if: :valid_subdomain?
+  before_action :authenticate_user!, if: :valid_subdomain?
+  before_action :authenticate_user_account!, if: Proc.new { valid_subdomain? && current_user.present? }
+
+  before_action :reset_current_account!, if: :invalid_subdomain?
+  before_action :reset_user_account!, if: Proc.new { invalid_subdomain? || current_user.nil? }
 
   def current_account
     @current_account ||= Account.find_by(subdomain: request.subdomain)
   end
 
-  def reset_current_account
+  def reset_current_account!
     @current_account = nil
   end
 
   def authenticate_user_account!
     @current_account_user ||= AccountUser.find_by(account: current_account, user: current_user)
+    redirect_to root_url(subdomain: 'www'), notice: "You do not have access to this account's domain" if @current_account_user.nil?
   end
 
+  def reset_user_account!
+    @current_account_user = nil
+  end
+
+  private
+
+  def valid_subdomain?
+    SubdomainPresent.matches?(request)
+  end
+
+  def invalid_subdomain?
+    SubdomainAbsent.matches?(request)
+  end
 end

@@ -4,8 +4,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :current_account, if: :valid_subdomain?
-  before_action :authenticate_user!, if: :valid_subdomain?
-  before_action :authenticate_user_account!, if: Proc.new { valid_subdomain? && current_user.present? }
+  before_action :authenticate_user!, if: :do_stuff
+  before_action :authenticate_user_account!, if: Proc.new { current_user.present? && valid_subdomain? }
 
   before_action :reset_current_account!, if: :invalid_subdomain?
   before_action :reset_user_account!, if: Proc.new { invalid_subdomain? || current_user.nil? }
@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
 
   def authenticate_user_account!
     @current_account_user ||= AccountUser.find_by(account: current_account, user: current_user)
-    redirect_to root_url(subdomain: 'www'), notice: "You do not have access to this account's domain" if @current_account_user.nil?
+    not_found if @current_account_user.nil?
   end
 
   def reset_user_account!
@@ -29,11 +29,19 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def do_stuff
+    current_user.nil? && valid_subdomain?
+  end
+
   def valid_subdomain?
     SubdomainPresent.matches?(request)
   end
 
   def invalid_subdomain?
     SubdomainAbsent.matches?(request)
+  end
+
+  def not_found
+    render :file => 'public/403.html', :status => :forbidden, :layout => false
   end
 end

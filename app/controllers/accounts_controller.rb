@@ -14,11 +14,16 @@ class AccountsController < ApplicationController
         redirect_to accounts_path
       end
     else
-      account = Account.create_with_user(account: account_params, user: user_params)
+      account_with_user = Account.create_with_user(account: account_params, user: user_params)
+      user = account_with_user[:user]
+      account = account_with_user[:account]
       unless account.nil?
+        sign_in user
+        user = warden.authenticate(scope: :user)
+        cookies.signed['user.id'] = user.id
         redirect_to root_url(subdomain: account.subdomain)
       else
-        flash[:error] = 'Account or User could not be created'
+        flash[:errors] = 'Account or User could not be created'
         redirect_to root_path
       end
     end

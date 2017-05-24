@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :current_account, if: :valid_subdomain?
-  before_action :authenticate_user!, if: :do_stuff
+  before_action :authenticate_user!, if: Proc.new { current_user.nil? && valid_subdomain? }
   before_action :authenticate_user_account!, if: Proc.new { current_user.present? && valid_subdomain? }
 
   before_action :reset_current_account!, if: :invalid_subdomain?
@@ -28,10 +28,6 @@ class ApplicationController < ActionController::Base
   end
 
   private
-
-  def do_stuff
-    current_user.nil? && valid_subdomain?
-  end
 
   def valid_subdomain?
     SubdomainPresent.matches?(request)

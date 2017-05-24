@@ -18,7 +18,7 @@ class AccountsController < ApplicationController
       unless account.nil?
         redirect_to root_url(subdomain: account.subdomain)
       else
-        flash[:errors] = 'Account or User could not be created'
+        flash[:error] = 'Account or User could not be created'
         redirect_to root_path
       end
     end

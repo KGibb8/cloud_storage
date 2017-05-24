@@ -10,4 +10,6 @@
     - if flash.any?
       - flash.each do |k, v|
         %div{ id: "alert-#{k}" }= v
+    - if current_user
+      %p Logged in as user #{current_user.id}
     = yield

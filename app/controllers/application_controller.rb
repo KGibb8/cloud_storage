@@ -1,4 +1,4 @@
-require "#{Rails.root}/app/lib/subdomain_matcher"
+require "#{Rails.root}/app/lib/domain_generator/subdomain_matcher"
 
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
@@ -30,11 +30,11 @@ class ApplicationController < ActionController::Base
   private
 
   def valid_subdomain?
-    SubdomainPresent.matches?(request)
+    DomainGenerator::SubdomainPresent.matches?(request)
   end
 
   def invalid_subdomain?
-    SubdomainAbsent.matches?(request)
+    DomainGenerator::SubdomainAbsent.matches?(request)
   end
 
   def forbidden

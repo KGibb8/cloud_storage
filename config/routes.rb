@@ -1,17 +1,17 @@
-require "#{Rails.root}/app/lib/subdomain_matcher"
+require "#{Rails.root}/app/lib/domain_generator/subdomain_matcher"
 
 Rails.application.routes.draw do
 
   devise_for :users
 
-  constraints SubdomainPresent do
+  constraints DomainGenerator::SubdomainPresent do
     root to: 'accounts#show'
     resources :accounts, only: [:update, :destroy]
     resources :directories, only: [:index, :create, :update, :destroy]
     resources :records, only: [:create, :update, :destroy]
   end
 
-  constraints SubdomainAbsent do
+  constraints DomainGenerator::SubdomainAbsent do
     root to: 'accounts#index'
     resources :accounts, only: [:index, :create]
   end

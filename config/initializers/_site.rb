@@ -1,4 +1,3 @@
-
 site_config = File.read Rails.root.join('config', 'site.yml')
 
 site_config = ActiveSupport::HashWithIndifferentAccess.new( Psych.load(site_config) )[Rails.env]

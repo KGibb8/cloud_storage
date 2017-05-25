@@ -80,6 +80,9 @@ GEM
     diff-lcs (1.3)
     docile (1.1.5)
     dotenv (2.2.1)
+    dotenv-rails (2.2.1)
+      dotenv (= 2.2.1)
+      railties (>= 3.2, < 5.2)
     erubis (2.7.0)
     execjs (2.7.0)
     factory_girl (4.8.0)
@@ -280,6 +283,7 @@ DEPENDENCIES
   database_cleaner
   devise
   dotenv
+  dotenv-rails
   factory_girl_rails
   faker
   font-awesome-rails

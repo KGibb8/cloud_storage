@@ -18,11 +18,9 @@
         = link_to 'Log out', destroy_user_session_path, method: :delete
     %br
     %br
-    %br
     - if current_user
-      Subdomains Accessible by this user:
-      %br
-      %br
-      = current_user.accounts.map(&:subdomain).join(', ')
+      %p
+        current_user.id has access to the following subdomains:
+        = current_user.accounts.pluck(:subdomain).map(&:upcase).join(' | ')
     %br
     = yield

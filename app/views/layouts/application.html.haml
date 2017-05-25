@@ -13,14 +13,21 @@
     %div{style: 'float:left'}
       - if current_user
         %p Logged in as user #{current_user.id}
+
     %div{style: 'float:right'}
       - if current_user
         = link_to 'Log out', destroy_user_session_path, method: :delete
+
+    %div{style: 'clear:both'}
+      = link_to 'Home', root_url(subdomain: 'app')
+
     %br
     %br
     - if current_user
       %p
-        current_user.id has access to the following subdomains:
-        = current_user.accounts.pluck(:subdomain).map(&:upcase).join(' | ')
+        User Account Access:
+      - current_user.accounts.each do |account|
+        %p
+          = link_to account.subdomain, root_url(subdomain: account.subdomain)
     %br
     = yield

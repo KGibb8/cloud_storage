@@ -1,0 +1,16 @@
+defaults: &defaults
+  title: blockadespace
+  tagline: blockadespace
+
+production:
+  <<: *defaults
+  domain: blockadespace.org
+
+development:
+  <<: *defaults
+  domain: blockadespace.dev
+  port: 5000
+
+test:
+  <<: *defaults
+  domain: blockadespace.test

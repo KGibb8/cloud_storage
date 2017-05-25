@@ -12,6 +12,7 @@ require "action_cable/engine"
 require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 require 'apartment/elevators/subdomain'
+require './app/middleware/apartment/custom_domain_cookie'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.

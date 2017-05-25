@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
 
   def authenticate_user_account!
     @current_account_user ||= AccountUser.find_by(account: current_account, user: current_user)
-    not_found if @current_account_user.nil?
+    not_found unless @current_account_user
   end
 
   def reset_user_account!
@@ -37,7 +37,11 @@ class ApplicationController < ActionController::Base
     SubdomainAbsent.matches?(request)
   end
 
-  def not_found
+  def forbidden
     render :file => 'public/403.html', :status => :forbidden, :layout => false
+  end
+
+  def not_found
+    render :file => 'public/404.html', :status => :not_found, :layout => false
   end
 end

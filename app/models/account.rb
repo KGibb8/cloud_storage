@@ -1,4 +1,5 @@
 class Account < ApplicationRecord
+  include ApartmentHelper
 
   has_many :account_users, dependent: :destroy
   has_many :users, through: :account_users
@@ -6,6 +7,8 @@ class Account < ApplicationRecord
   after_create :create_tenant, :create_root_directory
   after_destroy :remove_tenant
 
+  validate :subdomain_format
+  validate :excluded_subdomain
   validates_presence_of :subdomain, :email
   validates_uniqueness_of :subdomain, :email
 
@@ -37,10 +40,18 @@ class Account < ApplicationRecord
   def create_root_directory
     switch_tenant!(subdomain)
     Directory.create
-    switch_tenant!('public')
+    switch_tenant!
   end
 
   def remove_tenant
     Apartment::Tenant.drop(subdomain)
+  end
+
+  def excluded_subdomain
+    errors.add(:excluded_subdomain, 'subdomain reserved or in use') if Apartment::Elevators::Subdomain.excluded_subdomains.include? subdomain
+  end
+
+  def subdomain_format
+    errors.add(:subdomain_format, 'invalid subdomain format') if subdomain !~ /\A[a-zA-Z][a-zA-Z0-9\-]*[a-zA-Z0-9]\Z/
   end
 end

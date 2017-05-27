@@ -21,11 +21,15 @@ gem 'redis', '~> 3.0'
 gem 'dotenv'
 gem 'sidekiq'
 
-gem 'haml-rails'
 gem 'devise'
 gem 'apartment'
 gem 'paperclip'
+
+# Views & Styling
+gem 'haml-rails'
+gem 'hamburgers'
 gem 'font-awesome-rails'
+gem 'materialize-sass'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

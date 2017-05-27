@@ -6,13 +6,47 @@
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
-  %body
+  %body.bg-teal
+    %ul#slide-out.side-nav
+      %li
+        .userView
+          .background
+            %img{:src => "images/office.jpg"}/
+          %a{:href => "#!user"}
+            %img.circle{:src => "images/yuna.jpg"}/
+          %a{:href => "#!name"}
+            %span.white-text.name John Doe
+          %a{:href => "#!email"}
+            %span.white-text.email jdandturk@gmail.com
+      %li
+        %a{:href => "#!"}
+          %i.material-icons> cloud
+          First Link With Icon
+      %li
+        %a{:href => "#!"} Second Link
+      %li
+        .divider
+      %li
+        %a.subheader Subheader
+      %li
+        %a.waves-effect{:href => "#!"} Third Link With Waves
+    %a.button-collapse{"data-activates" => "slide-out", :href => "#"}
+      %i.material-icons menu
+
     - if flash.any?
       - flash.each do |k, v|
         %div{ id: "alert-#{k}" }= v
-    %div{style: 'float:left'}
-      - if current_user
-        %p Logged in as user #{current_user.id}
+
+    .row
+      .col.s2
+        - if current_user
+          %p Logged in as user #{current_user.id}
+      .col.s8
+      .col.s2
+        %button.hamburger.hamburger--arrow-r{:type => "button"}
+          %span.hamburger-box
+            %span.hamburger-inner
+
 
     %div{style: 'float:right'}
       - if current_user
@@ -30,4 +64,26 @@
         %p
           = link_to account.subdomain, root_url(subdomain: account.subdomain)
     %br
-    = yield
+    .container
+      = yield
+
+:javascript
+  $(function () {
+      // Initialize collapse button
+      $(".button-collapse").sideNav();
+      // Initialize collapsible (uncomment the line below if you use the dropdown variation)
+      $('.collapsible').collapsible();
+
+      $('body').on('swiperight', function () {
+        $('.button-collapse').sideNav('show');
+      });
+
+      $('.side-nav').on('swipeleft', function () {
+        $('.button-collapse').sideNav('hide');
+      });
+
+      $('button.hamburger').on('click', function () {
+        $('.button-collapse').sideNav('show');
+      });
+
+    });

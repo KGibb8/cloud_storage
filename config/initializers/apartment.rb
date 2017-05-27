@@ -42,7 +42,7 @@ Apartment.configure do |config|
   # config.prepend_environment = !Rails.env.production?
 end
 
-Apartment::Elevators::Subdomain.excluded_subdomains = ['www', 'app', 'public']
+Apartment::Elevators::Subdomain.excluded_subdomains = %w(www app public blog developer development api help sandbox support academy)
 
 # Setup a custom Tenant switching middleware. The Proc should return the name of the Tenant that
 # you want to switch to.

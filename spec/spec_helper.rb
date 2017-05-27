@@ -98,14 +98,3 @@ RSpec.configure do |config|
 =end
 end
 
-# def table_exists?(table_name)
-#   ActiveRecord::Base.connection.exec_query(
-#     <<-SQL
-#       IF EXISTS(
-#         SELECT 1 FROM information_schema.tables
-#           WHERE table_type = 'base table'
-#           AND table_name = #{table_name})
-#         SELECT 1 AS res ELSE SELECT 0 AS res;
-#     SQL
-#   )
-# end

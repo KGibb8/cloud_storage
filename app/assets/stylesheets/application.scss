@@ -14,3 +14,26 @@
  *= require_self
  *= require font-awesome
  */
+
+@import "materialize";
+@import "hamburgers";
+
+.inline {
+  display: inline;
+}
+
+.block {
+  display: block;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.float-right {
+  float: right
+}
+
+.float-left {
+  float: left
+}

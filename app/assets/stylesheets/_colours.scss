@@ -1,0 +1,13 @@
+// Add color and class name for background
+$core-colors: #272838, #5B6057, #E6EFE9, #3C6E71, #000022;
+$color-class: 'dark', 'greygreen','light', 'teal', 'midnight';
+
+@each $current-color in $core-colors {
+  $i: index($core-colors, $current-color);
+  .bg-#{nth($color-class, $i)} {
+    background-color: #{nth($core-colors, $i)};
+  }
+  .#{nth($color-class, $i)} {
+    color: #{nth($core-colors, $i)};
+  }
+}

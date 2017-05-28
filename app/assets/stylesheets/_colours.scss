@@ -10,4 +10,8 @@ $color-class: 'dark', 'greygreen','light', 'teal', 'midnight';
   .#{nth($color-class, $i)} {
     color: #{nth($core-colors, $i)};
   }
+  .border-#{nth($color-class, $i)} {
+    border: 3px solid #{nth($core-colors, $i)};
+    border-radius: 5px;
+  }
 }

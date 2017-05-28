@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   constraints DomainGenerator::SubdomainPresent do
     root to: 'directories#index'
     resources :accounts, only: [:show, :update, :destroy]
-    resources :directories, only: [:create, :update, :destroy]
+    resources :directories, only: [:show, :create, :update, :destroy]
     resources :records, only: [:create, :update, :destroy]
   end
 

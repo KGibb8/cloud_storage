@@ -37,3 +37,17 @@
 .float-left {
   float: left
 }
+
+.folder {
+  width: 140px;
+  height: 140px;
+  i {
+    position: absolute;
+    top: 25%;
+    left: 25%;
+  }
+}
+
+.relative {
+  position: relative;
+}

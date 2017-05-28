@@ -1,6 +1,25 @@
-.row
-  - @root.children.each do |child|
-    .col.s2
-      .folder
-        %i.fa.fa-folder-o.fa-5x.light
+- @root.children.each_slice(6) do |row|
+  .row
+    - row.each do |child|
+      .col.l3.m6.s12
+        .folder.relative{ id: "dir_#{child.id}" }
+          %i.fa.fa-folder-o.fa-5x.light.center-within-parent
+
+:javascript
+  $(function () {
+    $('.folder').on('click', function () {
+      if ($(this).hasClass('bg-greygreen')) {
+        $(this).removeClass('bg-greygreen');
+      } else {
+        $(this).addClass('bg-greygreen');
+      }
+    });
+
+    $('.folder').on('click', function (e) {
+      var id = this.id.match(/\d+/)[0];
+      $.get('/directories/' + id).done(function (response) {
+        console.log(response);
+      });
+    });
+  });
 

@@ -16,6 +16,8 @@ Bundler.require(*Rails.groups)
 module CloudStorage
   class Application < Rails::Application
     config.middleware.use Apartment::Elevators::Subdomain
+    config.middleware.use DomainGenerator::CustomDomainCookie, ".#{ENV.fetch( 'APP_DOMAIN' )}"
+
     config.autoload_paths += %W(#{Rails.root}/app/middleware #{Rails.root}/app/lib)
   end
 end

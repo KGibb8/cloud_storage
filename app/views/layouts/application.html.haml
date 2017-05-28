@@ -7,63 +7,66 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body.bg-teal
-    %ul#slide-out.side-nav
+    - if current_user
+      %ul#slide-out.side-nav
+        %li
+          .userView
+            .background
+              %img
+            = link_to root_url(subdomain: 'app') do
+              %span.home Home
+            -# %a{:href => "#!user"}
+            -#   %img.circle
+            %a{:href => "#!name"}
+              %span.name Current User: #{current_user.id}
+            %a{:href => "#!email"}
+              %span.email= current_user.email
+            = link_to destroy_user_session_path, method: :delete do
+              %span.logout Log out
+
+        - current_user.accounts.each do |account|
+          %li
+            = link_to root_url(subdomain: account.subdomain) do
+              %i.material-icons>
+              = account.subdomain
+
+    %ul#dropdown1.dropdown-content
       %li
-        .userView
-          .background
-            %img{:src => "images/office.jpg"}/
-          %a{:href => "#!user"}
-            %img.circle{:src => "images/yuna.jpg"}/
-          %a{:href => "#!name"}
-            %span.white-text.name John Doe
-          %a{:href => "#!email"}
-            %span.white-text.email jdandturk@gmail.com
+        %a{:href => "#!"} one
       %li
-        %a{:href => "#!"}
-          %i.material-icons> cloud
-          First Link With Icon
+        %a{:href => "#!"} two
+      %li.divider
       %li
-        %a{:href => "#!"} Second Link
-      %li
-        .divider
-      %li
-        %a.subheader Subheader
-      %li
-        %a.waves-effect{:href => "#!"} Third Link With Waves
-    %a.button-collapse{"data-activates" => "slide-out", :href => "#"}
-      %i.material-icons menu
+        %a{:href => "#!"} three
+    %nav.bg-dark
+      .nav-wrapper
+        %a.brand-logo{:href => "#!"}
+          = precede 'blockade' do
+            %strong space
+        %ul.right.hide-on-med-and-down
+          %li
+            %a{:href => "sass.html"} Sass
+          %li
+            %a{:href => "badges.html"} Components
+          / Dropdown Trigger
+          %li
+            %a.dropdown-button{"data-activates" => "dropdown1", :href => "#!"}
+              Dropdown
+              %i.material-icons.right
+
+      %a.button-collapse{"data-activates" => "slide-out", :href => "#"}
 
     - if flash.any?
       - flash.each do |k, v|
         %div{ id: "alert-#{k}" }= v
 
     .row
-      .col.s2
-        - if current_user
-          %p Logged in as user #{current_user.id}
-      .col.s8
+      .col.s10
       .col.s2
         %button.hamburger.hamburger--arrow-r{:type => "button"}
           %span.hamburger-box
             %span.hamburger-inner
 
-
-    %div{style: 'float:right'}
-      - if current_user
-        = link_to 'Log out', destroy_user_session_path, method: :delete
-
-    %div{style: 'clear:both'}
-      = link_to 'Home', root_url(subdomain: 'app')
-
-    %br
-    %br
-    - if current_user
-      %p
-        User Account Access:
-      - current_user.accounts.each do |account|
-        %p
-          = link_to account.subdomain, root_url(subdomain: account.subdomain)
-    %br
     .container
       = yield
 

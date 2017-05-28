@@ -3,15 +3,17 @@
     - row.each do |child|
       .col.l3.m6.s12
         .folder.relative{ id: "dir_#{child.id}" }
-          %i.fa.fa-folder-o.fa-5x.light.center-within-parent
+          %i.fa.fa-folder-o.fa-5x.light
 
 :javascript
   $(function () {
     $('.folder').on('click', function () {
       if ($(this).hasClass('bg-greygreen')) {
         $(this).removeClass('bg-greygreen');
+        $(this).removeClass('border-light');
       } else {
         $(this).addClass('bg-greygreen');
+        $(this).addClass('border-light');
       }
     });
 

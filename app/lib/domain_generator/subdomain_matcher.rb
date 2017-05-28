@@ -15,13 +15,13 @@ module DomainGenerator
 
   class SubdomainPresent < SubdomainMatcher
     def self.matches?(request)
-      request.host =~ /^[a-z0-9\-\.]*#{Site.host}/ && request.subdomain.present? && !subdomain_excluded?(request)
+      request.subdomain.present? && !subdomain_excluded?(request)
     end
   end
 
   class SubdomainAbsent < SubdomainMatcher
     def self.matches?(request)
-      request.host =~ /^[a-z0-9\-\.]*#{Site.host}/ && request.subdomain.blank? || subdomain_excluded?(request)
+      request.subdomain.blank? || subdomain_excluded?(request)
     end
   end
 end

@@ -36,7 +36,7 @@ class Directory < ApplicationRecord
 
   def records_attributes
     records.inject([]) do |array, record|
-      array << record.attributes
+      array << record.attributes.merge(record_url: record.path_to_file)
     end
   end
 

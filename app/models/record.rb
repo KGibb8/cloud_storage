@@ -14,6 +14,10 @@ class Record < ApplicationRecord
 
   private
 
+  def path_to_file
+    attachment.url
+  end
+
   def search_for_owner
     until user.present?
       set_owner(directory)

@@ -12,14 +12,9 @@ describe AccountsController do
   describe 'GET #index' do
     let(:get_index) { Proc.new { get :index } }
 
-    it 'assigns @accounts' do
-      expect(get_index).to change{ assigns :accounts }
-    end
-
     it 'returns a 200' do
       expect(response.status).to eq 200
     end
-
   end
 
   describe 'POST #create' do

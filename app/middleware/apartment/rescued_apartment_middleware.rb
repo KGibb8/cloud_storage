@@ -3,8 +3,15 @@ module RescuedApartmentMiddleware
     begin
       super
     rescue ::Apartment::TenantNotFound
-      Rails.logger.error "ERROR: Apartment Tenant not found: #{Apartment::Tenant.current.inspect}"
-      return [404, {"Content-Type" => "text/html"}, ["#{File.read(Rails.root.to_s + '/public/404.html')}"] ]
+      path = env['HTTP_HOST'].split(':').first
+      missing_subdomain = path.match(/(\w+).#{ENV['APP_DOMAIN']}$/)[1] rescue Apartment::Tenant.current
+      msg = "ERROR: Apartment Tenant not found: #{missing_subdomain}"
+      Rails.logger.error msg
+      raise NotFoundException.new, msg rescue not_found
     end
+  end
+
+  def not_found
+    return [404, {"Content-Type" => "text/html"}, ["#{File.read(Rails.root.to_s + '/public/404.html')}"] ]
   end
 end

@@ -15,7 +15,9 @@
  *= require font-awesome
  */
 
+@import "colours";
 @import "materialize";
+$hamburger-layer-color: $light;
 @import "hamburgers";
 
 .inline {

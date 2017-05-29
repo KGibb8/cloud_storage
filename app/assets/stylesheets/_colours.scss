@@ -1,17 +1,28 @@
-// Add color and class name for background
-$core-colors: #272838, #5B6057, #E6EFE9, #3C6E71, #000022;
-$color-class: 'dark', 'greygreen','light', 'teal', 'midnight';
+$dark: #272838;
+$greygreen: #5B6057;
+$light: #E6EFE9;
+$teal: #3C6E71;
+$midnight: #000022;
 
-@each $current-color in $core-colors {
-  $i: index($core-colors, $current-color);
-  .bg-#{nth($color-class, $i)} {
-    background-color: #{nth($core-colors, $i)};
+$colours: (
+  ($dark, 'dark'),
+  ($greygreen, 'greygreen'),
+  ($light, 'light'),
+  ($teal, 'teal'),
+  ($midnight, 'midnight')
+);
+
+@each $group in $colours {
+  $colour: #{nth($group, 1)};
+  $name: #{nth($group, 2)};
+  .bg-#{$name} {
+    background-color: #{$colour};
   }
-  .#{nth($color-class, $i)} {
-    color: #{nth($core-colors, $i)};
+  .#{$name} {
+    color: #{$colour};
   }
-  .border-#{nth($color-class, $i)} {
-    border: 3px solid #{nth($core-colors, $i)};
+  .border-#{$name} {
+    border: 3px solid #{$colour};
     border-radius: 5px;
   }
 }

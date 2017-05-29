@@ -2,12 +2,13 @@
 ENV['RAILS_ENV'] ||= 'test'
 ENV['APP_DOMAIN'] ||= 'blockadespace.test'
 
-Dir['./app/lib/**/*.rb'].each { |file| require file }
-
 require 'simplecov'
 SimpleCov.start 'rails' do
   add_filter 'vendor/'
+  add_group 'Lib', 'app/lib'
 end
+
+Dir['./app/lib/**/*.rb'].each { |file| require file }
 
 require File.expand_path('../../config/environment', __FILE__)
 # Prevent database truncation if the environment is production

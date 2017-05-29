@@ -1,5 +1,3 @@
-require "#{Rails.root}/app/lib/domain_generator/subdomain_matcher"
-
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 

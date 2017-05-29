@@ -1,5 +1,3 @@
-require "#{Rails.root}/app/lib/domain_generator/subdomain_matcher"
-
 Rails.application.routes.draw do
 
   devise_for :users

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Account do
-  let(:account) { create :account }
+  let!(:account) { create :account }
 
   let(:invalid_account) do
     ->(params) { Account.create params }
@@ -13,7 +13,7 @@ describe Account do
     end
 
     it 'is invalid without an email address' do
-      expect(invalid_account[ subdomain: Faker::StarWars.planet ]).to_not be_valid
+      expect(invalid_account[ subdomain: 'woof']).to_not be_valid
     end
 
     it 'is valid with email and subdomain' do
@@ -21,7 +21,7 @@ describe Account do
     end
   end
 
-  let(:account_params) { { email: Faker::Internet.email, subdomain: Faker::StarWars.planet } }
+  let(:account_params) { { email: Faker::Internet.email, subdomain: 'woof' } }
   let(:user_params) { { email: Faker::Internet.email, password: 'password', password_confirmation: 'password' } }
 
   describe '#create_with_new_user' do
@@ -79,10 +79,9 @@ describe Account do
   end
 
   describe 'deleting an account' do
-    let(:delete) { account.destroy }
-
     it 'drops the equivalent schema' do
-      expect(Account.pluck(:subdomain)).to_not include delete.subdomain
+      account.destroy
+      expect(Account.pluck(:subdomain)).to_not include account.subdomain
     end
   end
 end

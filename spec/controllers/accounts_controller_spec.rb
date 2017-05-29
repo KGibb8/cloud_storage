@@ -18,7 +18,7 @@ describe AccountsController do
   end
 
   describe 'POST #create' do
-    let(:account_params) { { account: { email: Faker::Internet.email, subdomain: Faker::StarWars.planet.underscore.gsub(' ','_') } } }
+    let(:account_params) { { account: { email: Faker::Internet.email, subdomain: 'woof' } } }
     let(:user_params) { { user: { email: Faker::Internet.email, password: 'password', password_confirmation: 'password' } } }
     let(:post_create) { Proc.new { post :create, params: account_params.merge(user_params) } }
 

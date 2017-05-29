@@ -1,5 +1,8 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV['RAILS_ENV'] ||= 'test'
+ENV['APP_DOMAIN'] ||= 'blockadespace.test'
+
+Dir['./app/lib/**/*.rb'].each { |file| require file }
 
 require 'simplecov'
 SimpleCov.start 'rails' do

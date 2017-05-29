@@ -1,31 +1,21 @@
 class AccountsController < ApplicationController
 
   def index
-    @accounts = Account.all
   end
 
   def create
-    if current_user
-      account = Account.create(account_params)
-      if account.valid?
-        AccountUser.create(account: account, user: current_user)
-        redirect_to root_url(subdomain: account.subdomain)
-      else
-        redirect_to accounts_path
-      end
+    account = if current_user
+                Account.create_with_current_user(account_params, current_user.id)
+              else
+                Account.create_with_first_user(account_params, user_params)
+              end
+
+    if account.present?
+      sign_in account.users.first unless current_user
+      redirect_to subdomain_path(account)
     else
-      account_with_user = Account.create_with_user(account: account_params, user: user_params)
-      user = account_with_user[:user]
-      account = account_with_user[:account]
-      unless account.nil?
-        sign_in user
-        user = warden.authenticate(scope: :user)
-        cookies.signed['user.id'] = user.id
-        redirect_to root_url(subdomain: account.subdomain)
-      else
-        flash[:errors] = 'Account or User could not be created'
-        redirect_to root_path
-      end
+      flash[:errors] = 'Account or User could not be created'
+      redirect_to home_path
     end
   end
 

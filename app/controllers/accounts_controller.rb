@@ -7,7 +7,7 @@ class AccountsController < ApplicationController
     account = if current_user
                 Account.create_with_current_user(account_params, current_user.id)
               else
-                Account.create_with_first_user(account_params, user_params)
+                Account.create_with_new_user(account_params, user_params)
               end
 
     if account.present?

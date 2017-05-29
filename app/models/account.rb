@@ -17,28 +17,28 @@ class Account < ApplicationRecord
   # #################
 
   class << self
-    def create_with_first_user(account_params, user_params)
+    def create_with_new_user(account_params, user_params)
       ActiveRecord::Base.transaction do
-        account = Account.new(account_params)
-        user = User.new(user_params)
-        if user.save && account.save
-          account.account_users.create user: user
-        else
-          raise ActiveRecord::Rollback, "account errors: #{account.errors}, user errors: #{user.errors}"
+        Account.new(account_params).tap do |account|
+          user = User.new(user_params)
+          if user.save && account.save
+            account.account_users.create user: user
+          else
+            raise ActiveRecord::Rollback, "account errors: #{account.errors}, user errors: #{user.errors}"
+          end
         end
-        account
       end
     end
 
     def create_with_current_user(account_params, user_id)
       ActiveRecord::Base.transaction do
-        account = Account.new(account_params)
-        if account.save
-          account.account_users.create user_id: user_id
-        else
-          raise ActiveRecord::Rollback, account.errors
+        Account.new(account_params).tap do |account|
+          if account.save
+            account.account_users.create user_id: user_id
+          else
+            raise ActiveRecord::Rollback, account.errors
+          end
         end
-        account
       end
     end
   end

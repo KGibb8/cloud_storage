@@ -5,23 +5,5 @@
         .folder.relative{ id: "dir_#{child.id}" }
           %i.fa.fa-folder-o.fa-5x.light
 
-:javascript
-  $(function () {
-    $('.folder').on('click', function () {
-      if ($(this).hasClass('bg-greygreen')) {
-        $(this).removeClass('bg-greygreen');
-        $(this).removeClass('border-light');
-      } else {
-        $(this).addClass('bg-greygreen');
-        $(this).addClass('border-light');
-      }
-    });
-
-    $('.folder').on('click', function (e) {
-      var id = this.id.match(/\d+/)[0];
-      $.get('/directories/' + id).done(function (response) {
-        console.log(response);
-      });
-    });
-  });
+= javascript_include_tag 'directories'
 

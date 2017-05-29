@@ -1,4 +1,4 @@
-%h1.light Blockadespace
+%h2.light Sign up for a new account
 
 = form_for Account.new, method: :post do |f|
   %p Account Details
@@ -6,14 +6,15 @@
   = f.text_field :email
   = f.label :subdomain
   = f.text_field :subdomain
-  %p User Details
-  = fields_for :user do |u|
-    = u.label :name
-    = u.text_field :name
-    = u.label :email
-    = u.text_field :email
-    = u.label :password
-    = u.password_field :password
-    = u.label :password_confirmation
-    = u.password_field :password_confirmation
+  - unless current_user
+    %p User Details
+    = fields_for :user do |u|
+      = u.label :name
+      = u.text_field :name
+      = u.label :email
+      = u.text_field :email
+      = u.label :password
+      = u.password_field :password
+      = u.label :password_confirmation
+      = u.password_field :password_confirmation
   = f.submit

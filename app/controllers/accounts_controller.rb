@@ -12,10 +12,10 @@ class AccountsController < ApplicationController
 
     if account.present?
       sign_in account.users.first unless current_user
-      redirect_to subdomain_path(account)
+      redirect_to root_url(subdomain: account.subdomain)
     else
       flash[:errors] = 'Account or User could not be created'
-      redirect_to home_path
+      redirect_to root_url(subdomain: 'app')
     end
   end
 

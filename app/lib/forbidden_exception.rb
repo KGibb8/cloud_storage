@@ -1,1 +1,0 @@
-class ForbiddenException < StandardError; end

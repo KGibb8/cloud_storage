@@ -5,6 +5,8 @@ ENV['APP_DOMAIN'] ||= 'blockadespace.test'
 require 'simplecov'
 SimpleCov.start 'rails' do
   add_filter 'vendor/'
+  add_filter 'app/channels'
+  add_filter 'app/jobs'
   add_group 'Lib', 'app/lib'
 end
 
@@ -17,6 +19,8 @@ require 'spec_helper'
 require 'rspec/rails'
 #
 # Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+
+include ApartmentHelper
 
 ActiveRecord::Migration.maintain_test_schema!
 

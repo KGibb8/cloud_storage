@@ -1,4 +1,5 @@
 class AccountsController < ApplicationController
+  before_action :not_found, only: [:show], if: Proc.new { invalid_subdomain? }
 
   def index
   end

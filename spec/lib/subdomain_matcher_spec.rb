@@ -23,11 +23,11 @@ describe DomainGenerator do
     let(:matcher) { DomainGenerator::SubdomainPresent }
 
     it 'returns true if valid subdomain' do
-      expect(matcher.matches?(request['pirates'])).to be_truthy
+      expect(matcher.private?(request['pirates'])).to be_truthy
     end
 
     it 'returns false if invalid subdomain' do
-      expect(matcher.matches?(request['app'])).to be_falsey
+      expect(matcher.private?(request['app'])).to be_falsey
     end
   end
 
@@ -35,11 +35,11 @@ describe DomainGenerator do
     let(:matcher) { DomainGenerator::SubdomainAbsent }
 
     it 'returns true if invalid subdomain' do
-      expect(matcher.matches?(request['app'])).to be_truthy
+      expect(matcher.private?(request['app'])).to be_truthy
     end
 
     it 'returns false if valid subdomain' do
-      expect(matcher.matches?(request['monkeys'])).to be_falsey
+      expect(matcher.private?(request['monkeys'])).to be_falsey
     end
   end
 

@@ -95,7 +95,7 @@ describe AccountsController do
     context 'inside a valid subdomain' do
       def do_request
         switch_tenant!(account.subdomain)
-        get :show, params: { id: account.id }
+        get :show
       end
 
       it 'returns a 200' do

@@ -18,6 +18,7 @@ class ApplicationController < ActionController::Base
   before_action :reset_current_account!, if: :invalid_subdomain?
   before_action :reset_user_account!, if: Proc.new { invalid_subdomain? || current_user.nil? }
 
+  helper_method :current_account
   def current_account
     @current_account ||= Account.find_by(subdomain: request.subdomain)
   end

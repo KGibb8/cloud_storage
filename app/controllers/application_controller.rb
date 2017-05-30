@@ -38,11 +38,11 @@ class ApplicationController < ActionController::Base
   private
 
   def valid_subdomain?
-    DomainGenerator::SubdomainPresent.matches?(request)
+    DomainGenerator::SubdomainPresent.private?(request)
   end
 
   def invalid_subdomain?
-    DomainGenerator::SubdomainAbsent.matches?(request)
+    DomainGenerator::SubdomainAbsent.private?(request)
   end
 
   def forbidden

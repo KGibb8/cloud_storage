@@ -12,11 +12,11 @@ class Record < ApplicationRecord
 
   do_not_validate_attachment_file_type :attachment
 
-  private
-
   def path_to_file
     attachment.url
   end
+
+  private
 
   def search_for_owner
     until user.present?

@@ -1,15 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
-  rescue_from Forbidden do |exception|
-    @error_message = exception.message
-    render :file => 'public/403.html', :status => :forbidden, :layout => false
-  end
-
-  rescue_from NotFound do |exception|
-    @error_message = exception.message
-    render :file => 'public/404.html', :status => :not_found, :layout => false
-  end
+  rescue_from Forbidden, with: :rescue_403
+  rescue_from NotFound, with: :rescue_404
 
   before_action :current_account, if: :valid_subdomain?
   before_action :authenticate_user!, if: Proc.new { current_user.nil? && valid_subdomain? }
@@ -20,7 +13,8 @@ class ApplicationController < ActionController::Base
   before_action :reset_current_account!, if: :invalid_subdomain?
   before_action :reset_user_account!, if: Proc.new { invalid_subdomain? || current_user.nil? }
 
-  helper_method :current_account
+  helper_method :current_account, :current_account_user
+
   def current_account
     @current_account ||= Account.find_by(subdomain: request.subdomain)
   end
@@ -29,13 +23,12 @@ class ApplicationController < ActionController::Base
     @current_account = nil
   end
 
-  helper_method :current_account_user
   def current_account_user
     @current_account_user ||= AccountUser.find_by(account: current_account, user: current_user)
   end
 
   def authenticate_account_user!
-    not_found unless @current_account_user
+    forbidden unless @current_account_user
   end
 
   def reset_user_account!
@@ -62,5 +55,13 @@ class ApplicationController < ActionController::Base
 
   def not_found
     raise NotFound.new, 'Not Found'
+  end
+
+  def rescue_404
+    render :file => 'public/404.html', :status => 404, :layout => false
+  end
+
+  def rescue_403
+    render :file => 'public/403.html', :status => :forbidden, :layout => false
   end
 end

@@ -1,0 +1,4 @@
+= form_for current_account, url: :update_account, method: :patch do |f|
+  = f.label :subdomain
+  = f.text_field :subdomain
+  = f.submit

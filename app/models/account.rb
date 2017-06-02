@@ -5,6 +5,7 @@ class Account < ApplicationRecord
   has_many :users, through: :account_users
 
   after_create :create_tenant, :create_root_directory
+  after_update :rename_schema, if: :subdomain_changed?
   after_destroy :remove_tenant
 
   validate :subdomain_format
@@ -47,6 +48,10 @@ class Account < ApplicationRecord
 
   def create_tenant
     Apartment::Tenant.create(subdomain)
+  end
+
+  def rename_schema
+    ActiveRecord::Base.connection.exec_query("ALTER SCHEMA #{subdomain_was} RENAME TO #{subdomain}")
   end
 
   def create_root_directory

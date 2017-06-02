@@ -23,6 +23,14 @@ class AccountsController < ApplicationController
   def show
   end
 
+  def settings
+  end
+
+  def update
+    current_account.update(account_params)
+    redirect_to root_url(subdomain: current_account.subdomain)
+  end
+
   private
 
   def account_params

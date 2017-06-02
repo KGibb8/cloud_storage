@@ -29,6 +29,9 @@
             = link_to root_url(subdomain: account.subdomain) do
               %i.material-icons>
               = account.subdomain
+          %li
+            = link_to 'Account', account_url(subdomain: account.subdomain)
+            = link_to 'Settings', account_settings_url(subdomain: account.subdomain)
         %li
           %a{href: '#', id: 'sidebar-close'}
             %span.close Close

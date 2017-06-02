@@ -15,21 +15,13 @@ module DomainGenerator
 
   class SubdomainPresent < SubdomainMatcher
     def self.matches?(request)
-      request.subdomain.present?
-    end
-
-    def self.private?(request)
-      self.matches?(request) && !subdomain_excluded?(request)
+      request.subdomain.present? && !subdomain_excluded?(request)
     end
   end
 
   class SubdomainAbsent < SubdomainMatcher
     def self.matches?(request)
-      request.subdomain.blank?
-    end
-
-    def self.private?(request)
-      self.matches?(request) || subdomain_excluded?(request)
+      request.subdomain.blank? || subdomain_excluded?(request)
     end
   end
 end

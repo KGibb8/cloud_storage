@@ -12,4 +12,12 @@ class User < ApplicationRecord
   has_many :directories
   has_many :records
 
+  after_create :create_root_directory
+
+  private
+
+  def create_root_directory
+    directories.create(directory_id: nil)
+  end
+
 end

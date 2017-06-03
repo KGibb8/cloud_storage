@@ -14,9 +14,9 @@
             .background
               %img
             = link_to root_url(subdomain: 'app') do
-              %span.home Home
-            -# %a{:href => "#!user"}
-            -#   %img.circle
+              %span.name Home
+            = link_to directories_path do
+              %span.email My Files
             %a{href: "#!name"}
               %span.name Current User: #{current_user.id}
             %a{href: "#!email"}
@@ -24,6 +24,8 @@
             = link_to destroy_user_session_path, method: :delete do
               %span.logout Log out
 
+        %li
+          %a My Accounts
         - current_user.accounts.each do |account|
           %li
             = link_to root_url(subdomain: account.subdomain) do

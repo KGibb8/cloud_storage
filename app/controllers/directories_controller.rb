@@ -20,7 +20,7 @@ class DirectoriesController < ApplicationController
   end
 
   def find_root_directory
-    @root = Directory.find_by(directory_id: nil)
+    @root = current_account ? Directory.find_by(directory_id: nil) : current_user.directories.find_by(directory_id: nil)
   end
 
   def find_directory

@@ -45,7 +45,11 @@ class Directory < ApplicationRecord
   # ##############
 
   def singularity_of_root
-    self.errors.add(:singularity_of_root, 'Already has a root directory') if Directory.any? && directory_id.nil?
+    if user
+      self.errors.add(:singularity_of_root, 'Already has a root directory') if user.directories.count > 1 && directory_id.nil?
+    else
+      self.errors.add(:singularity_of_root, 'Already has a root directory') if Directory.count > 1 && directory_id.nil?
+    end
   end
 
   # #########

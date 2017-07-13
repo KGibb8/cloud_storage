@@ -2,7 +2,7 @@
 %html
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title CloudStorage
+    %title blockadespace
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
@@ -15,7 +15,7 @@
               %img
             = link_to root_url(subdomain: 'app') do
               %span.name Home
-            = link_to directories_path do
+            = link_to directories_url(subdomain: 'app') do
               %span.email My Files
             %a{href: "#!name"}
               %span.name Current User: #{current_user.id}
@@ -49,8 +49,9 @@
     %nav.bg-dark
       .nav-wrapper
         = link_to root_url(subdomain: 'app'), class: 'brand-logo' do
-          = precede 'blockade' do
-            %strong space
+          %h1{ style: 'margin:auto;margin-top:20px;margin-left:10px;font-size:28px;' }
+            = precede 'blockade' do
+              %strong space
         %ul.right.hide-on-med-and-down
           %li
             - unless current_user

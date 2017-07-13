@@ -21,11 +21,11 @@ $(function () {
     }
   });
 
-  $('.folder').on('click', function (e) {
+  $('.folder').on('dblclick', function (e) {
     var id = this.id.match(/\d+/)[0];
-    $.get('/directories/' + id).done(function (response) {
-      console.log(response);
-    });
+    window.location.href = window.location.origin + '?id=' + id
+    // $.get('/directories/' + id).done(function (response) {
+    // });
   });
 });
 

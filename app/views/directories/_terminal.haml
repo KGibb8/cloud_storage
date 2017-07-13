@@ -1,0 +1,15 @@
+= stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Ubuntu+Mono'
+
+.terminal.border-dark
+  .inline-block.miniterm
+    %input{ type: 'text', id: 'terminalInput', autofocus: true }
+    .line{ data: { line: 1 } }
+      %span#timestamp.timestamp
+      - if current_account
+        %span#account #{current_account.subdomain}:
+      %span#user= current_user.email
+      %span#directory
+      %span#dollar.dollar $
+      %span.textOutput
+      .cursor#cursor
+        %span.visible _

@@ -1,19 +1,24 @@
 var TerminalCommands = {
 
   'cd': function (directory) {
-    $.post('/directories', {
-      data: { directory: directory }
-    }).done(function (response) {
-
-    });
+    var dir = $('.directory[data-name="' + directory + '"]')
+    if (dir) {
+      $.get('/directories/' + dir.data('id')).done(function (response) {
+        // Here we want to start think about rendering partials! Can we submit a remote:true form instead so we can render a partial?
+      });
+    } else {
+      return function () {
+        return directory + ' not found';
+      }
+    }
   },
 
   'ls': function (directory) {
-    $.get('/directories', {
-      data: { directory: directory }
-    }).done(function (response) {
-
-    });
+    var directories = document.getElementsByClassName('directory');
+    list = Array.prototype.map.call(directories, function (element) {
+      return $(element).find('a').text();
+    }).join(' ');
+    return list;
   },
 
   'rm': function (directory) {

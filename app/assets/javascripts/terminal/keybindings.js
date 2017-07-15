@@ -2,10 +2,32 @@ var KeyBindings = function (keyCode, textField) {
 
   var LineBreak = function () {
 
+    // Next step, improve this, make extensible for more commands and recuse correctly
+    // Should we be using vanilla instead of jquery?
+    var parseEntry = function () {
+      var commands = $('.active span.textOutput').text().split(' ');
+      var command = commands[0];
+      var operator = commands[1];
+      var operand = commands[2];
+      output = TerminalCommands[command];
+      termOutput = $('.line.active span.termOutput');
+      try{
+        termOutput.html(output(operator));
+      }
+      catch(e) {
+        termOutput.html('blockades: command not found: ' + commands[0]);
+      }
+      termOutput.css('display', 'block');
+    }
+
+    var validateCommands = function (commands) {
+    }
+
     var newLine = function () {
       var $currentLine = $('.line.active');
       var lineNumber = parseInt($currentLine.data('line'))
       var $nextLine = $currentLine.clone().attr('data-line', lineNumber += 1);
+      $nextLine.find('span.termOutput').css('display', 'none');
       $nextLine.find('.timestamp').html(timestamp());
       $('.miniterm').append($nextLine);
       $currentLine.removeClass('active');
@@ -20,6 +42,7 @@ var KeyBindings = function (keyCode, textField) {
       return $newCursor;
     }
 
+    parseEntry();
     $newLine = newLine();
     newCursor($newLine);
     clearInput();

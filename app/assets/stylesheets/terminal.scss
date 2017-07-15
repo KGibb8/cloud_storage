@@ -1,12 +1,20 @@
 
 .terminal {
-  background: black;
+  background: #002B36;
   width: 100%;
   span {
     padding: 0;
-    color: transparent;
-    text-shadow: 0 0 0 white;
+    color: white;
     font-family: Ubuntu Mono;
+  }
+  #user {
+    color: cyan;
+  }
+  #account {
+    color: red;
+  }
+  #timestamp {
+    color: yellow;
   }
 }
 
@@ -15,8 +23,15 @@ input#terminalInput {
   top: -100px;
 }
 
+span.termOutput {
+  background: #002B36;
+  -webkit-appearance: none;
+  border: none;
+  display: none;
+}
+
 span.textOutput {
-  background: black;
+  background: #002B36;
   -webkit-appearance: none;
   border: none;
   display: inline-block;

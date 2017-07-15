@@ -10,7 +10,7 @@ class Directory < ApplicationRecord
 
   before_validation :search_for_owner
 
-  # validates_presence_of :user
+  validates_presence_of :name
 
   validate :singularity_of_root
 

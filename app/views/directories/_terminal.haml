@@ -3,7 +3,7 @@
 .terminal.border-dark
   .inline-block.miniterm
     %input{ type: 'text', id: 'terminalInput', autofocus: true }
-    .line{ data: { line: 1 } }
+    .line.active{ data: { line: 1, account: current_account ? current_account.subdomain : '', user: current_user.email } }
       %span#timestamp.timestamp
       - if current_account
         %span#account #{current_account.subdomain}:
@@ -13,3 +13,4 @@
       %span.textOutput
       .cursor#cursor
         %span.visible _
+      %span.termOutput

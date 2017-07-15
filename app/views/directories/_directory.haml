@@ -1,7 +1,5 @@
-- row += 1
-- directory.children.each_with_index do |child, index|
-  %i.fa.fa-folder.fa-stack-2x{style: "margin-left:#{index}em; margin-top:#{row}em;"}
-  = render partial: 'directories/directory', locals: { directory: child, row: row }
-
-- directory.records.each do |record|
-  = render partial: 'records/record', locals: { record: record }
+.col.l3.m6.s12
+  .directory{ id: "dir_#{directory.id}", data: { id: directory.id, name: directory.name } }
+    .folder.relative{ id: "dir_#{directory.id}", data: { id: directory.id, name: directory.name } }
+      %i.fa.fa-folder-o.fa-5x.light
+    = link_to directory.name, root_url(subdomain: current_account ? current_account.subdomain : 'app', id: directory.id)

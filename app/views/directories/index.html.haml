@@ -1,17 +1,10 @@
-.folders
-  - @root.children.each_slice(4) do |row|
-    .row
-      - row.each do |child|
-        .col.l3.m6.s12
-          .folder.relative{ id: "dir_#{child.id}" }
-            %i.fa.fa-folder-o.fa-5x.light
-          = link_to 'child', root_url(subdomain: current_account ? current_account.subdomain : 'app', id: child.id)
-  - @root.records.each_slice(4) do |row|
-    .row
-      - row.each do |record|
-        .col.l3.m6.s12
-          .record.relative{ data: { id: child.id } }
-            %i.fa.fa-file-o.fa-5x.light
+.folders{ data: { id: @root.id } }
+  .row
+    - @root.children.each do |child|
+      = render partial: 'directories/directory', locals: { directory: child }
+  .row
+    - @root.records.each do |record|
+      = render partial: 'records/record', locals: { record: record }
 
 = render partial: 'terminal'
 = javascript_include_tag 'directories'

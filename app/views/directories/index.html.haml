@@ -1,10 +1,9 @@
 .folders{ data: { id: @root.id } }
   .row
-    - @root.children.each do |child|
-      = render partial: 'directories/directory', locals: { directory: child }
-  .row
-    - @root.records.each do |record|
-      = render partial: 'records/record', locals: { record: record }
+    .col.l12.m12.s12
+      .directories
+        = render partial: 'parent_directory', locals: { directory: @root }
 
 = render partial: 'terminal'
+
 = javascript_include_tag 'directories'

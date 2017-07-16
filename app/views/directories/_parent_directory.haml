@@ -1,0 +1,9 @@
+#currentDirectory{ data: { id: directory.id, name: directory.name } }
+  - directory.children.each do |child|
+    = render partial: 'directories/directory', locals: { directory: child }
+.records
+  - directory.records.each do |record|
+    = render partial: 'records/record', locals: { record: record }
+
+- if directory.parent.present?
+  = link_to '', directory_path(subdomain: current_account.subdomain, id: directory.parent.id), remote: true, class: 'parent-link'

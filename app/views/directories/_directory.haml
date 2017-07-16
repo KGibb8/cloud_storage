@@ -1,5 +1,5 @@
-.col.l3.m6.s12
-  .directory{ id: "dir_#{directory.id}", data: { id: directory.id, name: directory.name } }
-    .folder.relative{ id: "dir_#{directory.id}", data: { id: directory.id, name: directory.name } }
-      %i.fa.fa-folder-o.fa-5x.light
-    = link_to directory.name, root_url(subdomain: current_account ? current_account.subdomain : 'app', id: directory.id)
+= link_to directory_path(subdomain: current_account.subdomain, id: directory.id), remote: true, class: 'directory-link' do
+  .directory.relative{ id: "dir_#{directory.id}", data: { id: directory.id, name: directory.name, parent_id: directory.parent.id } }
+    %i.fa.fa-folder-o.fa-5x.light
+    %p= directory.name
+

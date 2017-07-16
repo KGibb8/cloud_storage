@@ -1,0 +1,2 @@
+$('.directories').empty();
+$('.directories').append("#{escape_javascript( render partial: 'parent_directory', locals: { directory: @directory } )}")

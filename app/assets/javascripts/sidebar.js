@@ -24,4 +24,28 @@ $(function () {
   $('#sidebar-close').on('click', function () {
     $('.button-collapse').sideNav('hide');
   });
+
+  $.fn.Terminal = function () {
+    var $terminal= $(this);
+
+    var actions = {
+      'show': function () {
+        $terminal.addClass('close');
+      },
+      'hide': function () {
+        $terminal.removeClass('close');
+      }
+    }
+
+    if ($terminal.hasClass('close')) {
+      actions['hide']();
+    } else {
+      actions['show']();
+    }
+  }
+
+  $('.terminal-trigger').on('click', function(e) {
+    $('.terminal-nav').Terminal();
+  });
+
 });

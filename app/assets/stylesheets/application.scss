@@ -12,13 +12,17 @@
  *
  *= require_tree .
  *= require_self
- *= require font-awesome
  */
 
 @import "colours";
 @import "materialize";
+@import "font-awesome";
 $hamburger-layer-color: $light;
 @import "hamburgers";
+
+.body {
+  overflow: hidden;
+}
 
 .inline {
   display: inline;
@@ -30,6 +34,10 @@ $hamburger-layer-color: $light;
 
 .inline-block {
   display: inline-block;
+}
+
+.hidden {
+  display: none;
 }
 
 .float-right {
@@ -63,5 +71,38 @@ $hamburger-layer-color: $light;
 
 .relative {
   position: relative;
+}
+
+.visible {
+  visibility: visible;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.term {
+  position: absolute;
+  bottom: 0;
+}
+
+.terminal-nav {
+  position: relative;
+  width: 100vw;
+  height: 30vh;
+  top: 0;
+  overflow: hidden;
+  transition: all 1s;
+  background: #002B36;
+  border-top: 2px solid white;
+}
+
+.close {
+  top: 30vh;
+  height: 0;
+}
+
+.fa-terminal {
+  cursor: pointer;
 }
 

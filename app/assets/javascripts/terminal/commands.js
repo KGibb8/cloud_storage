@@ -2,13 +2,13 @@ var TerminalCommands = {
 
   'cd': function (directory) {
     var dir = $('.directory[data-name="' + directory + '"]')
-    if (dir) {
-      $.get('/directories/' + dir.data('id')).done(function (response) {
-        // Here we want to start think about rendering partials! Can we submit a remote:true form instead so we can render a partial?
-      });
+    if (dir.length > 0) {
+      dir.parent().click();
+    } else if (/^(\.)\1+$/.test(directory)) {
+      $('#currentDirectory').siblings('a.parent-link').click();
     } else {
       return function () {
-        return directory + ' not found';
+        return 'cd: no such file or directory: ' + directory;
       }
     }
   },
@@ -16,7 +16,7 @@ var TerminalCommands = {
   'ls': function (directory) {
     var directories = document.getElementsByClassName('directory');
     list = Array.prototype.map.call(directories, function (element) {
-      return $(element).find('a').text();
+      return $(element).find('p').text();
     }).join(' ');
     return list;
   },

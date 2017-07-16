@@ -6,18 +6,20 @@ var KeyBindings = function (keyCode, textField) {
     // Should we be using vanilla instead of jquery?
     var parseEntry = function () {
       var commands = $('.active span.textOutput').text().split(' ');
-      var command = commands[0];
-      var operator = commands[1];
-      var operand = commands[2];
-      output = TerminalCommands[command];
-      termOutput = $('.line.active span.termOutput');
-      try{
-        termOutput.html(output(operator));
+      if (commands[0] != '') {
+        var command = commands[0];
+        var operator = commands[1];
+        var operand = commands[2];
+        output = TerminalCommands[command];
+        termOutput = $('.line.active span.termOutput');
+        try{
+          termOutput.html(output(operator));
+        }
+        catch(e) {
+          termOutput.html('blockades: command not found: ' + commands[0]);
+        }
+        termOutput.css('display', 'block');
       }
-      catch(e) {
-        termOutput.html('blockades: command not found: ' + commands[0]);
-      }
-      termOutput.css('display', 'block');
     }
 
     var validateCommands = function (commands) {

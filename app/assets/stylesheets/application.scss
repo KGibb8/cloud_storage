@@ -40,7 +40,13 @@ $hamburger-layer-color: $light;
   float: left
 }
 
-.folder {
+.directories {
+  a {
+    display: inline-block;
+  }
+}
+
+.directory {
   width: 140px;
   height: 140px;
   i {
@@ -48,8 +54,14 @@ $hamburger-layer-color: $light;
     top: 25%;
     left: 25%;
   }
+  p {
+    position: absolute;
+    bottom: 0%;
+    left: 25%;
+  }
 }
 
 .relative {
   position: relative;
 }
+

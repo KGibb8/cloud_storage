@@ -1,5 +1,12 @@
 $(function () {
-  $(".button-collapse").sideNav();
+  $('.button-collapse#left').sideNav({
+    edge: 'left'
+  });
+
+  $('.button-collapse#right').sideNav({
+    edge: 'right'
+  });
+
   $('.collapsible').collapsible();
 
   $('body').on('swiperight', function () {

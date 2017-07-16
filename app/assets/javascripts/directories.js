@@ -21,11 +21,7 @@ $(function () {
     }
   });
 
-  $('.folder').on('dblclick', function (e) {
-    var id = this.id.match(/\d+/)[0];
-    window.location.href = window.location.origin + '?id=' + id
-    // $.get('/directories/' + id).done(function (response) {
-    // });
+  $('.directory-link').on('dblclick', function (e) {
   });
 });
 

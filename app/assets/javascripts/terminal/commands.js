@@ -4,8 +4,10 @@ var TerminalCommands = {
     var dir = $('.directory[data-name="' + directory + '"]')
     if (dir.length > 0) {
       dir.parent().click();
+      return "";
     } else if (/^(\.)\1+$/.test(directory)) {
       $('#currentDirectory').siblings('a.parent-link').click();
+      return "";
     } else {
       return function () {
         return 'cd: no such file or directory: ' + directory;
@@ -39,5 +41,11 @@ var TerminalCommands = {
     }).done(function (response) {
 
     });
+  },
+
+  'clear': function () {
+    $('.line').not('.active').remove();
+    return "";
   }
+
 }

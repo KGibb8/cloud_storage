@@ -1,5 +1,8 @@
 var KeyBindings = function (keyCode, textField) {
 
+  var inputField = $('#terminalInput');
+  var activeOutput =  $('.active span.textOutput');
+
   var LineBreak = function () {
 
     // Next step, improve this, make extensible for more commands and recuse correctly

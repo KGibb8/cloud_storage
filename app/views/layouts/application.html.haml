@@ -54,6 +54,8 @@
               %strong space
         %ul.right.hide-on-med-and-down
           %li
+            %i.fa.fa-terminal.fa-2x.terminal-trigger
+          %li
             - unless current_user
               = link_to new_user_session_path, method: :post do
                 %span.login Log in
@@ -68,6 +70,10 @@
       - flash.each do |k, v|
         %div{ id: "alert-#{k}" }= v
 
+    .term
+      .terminal-nav.close
+        = render partial: 'terminal'
+
     .row
       .col.s10
       .col.s2
@@ -78,5 +84,3 @@
 
     .container
       = yield
-
-= javascript_include_tag 'sidebar'

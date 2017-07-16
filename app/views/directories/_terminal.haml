@@ -1,6 +1,6 @@
 = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Ubuntu+Mono'
 
-.terminal.border-dark
+.terminal
   .inline-block.miniterm
     %input{ type: 'text', id: 'terminalInput', autofocus: true }
     .line.active{ data: { line: 1, account: current_account ? current_account.subdomain : '', user: current_user.email } }

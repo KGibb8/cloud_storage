@@ -3,6 +3,7 @@ class DirectoriesController < ApplicationController
   before_action :find_root_directory, only: [:index]
   before_action :find_directory, only: [:show]
 
+  # TODO: Rethink User/Account idea
   def index
   end
 
@@ -11,7 +12,11 @@ class DirectoriesController < ApplicationController
   end
 
   def show
-    render json: @directory.tree.to_json
+    respond_to do |format|
+      format.js do
+        render 'directory'
+      end
+    end
   end
 
   private

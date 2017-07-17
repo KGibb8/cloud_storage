@@ -5,6 +5,43 @@ var KeyBindings = function (keyCode, textField) {
 
   var LineBreak = function () {
 
+    var timestampSpan = function () {
+      return "<span class=\"timestamp\" id=\"timestamp\">" + timestamp() + " </span>";
+    }
+
+    var accountSpan = function () {
+      return "<span id=\"account\">" + $('.terminal').data('account') + ":</span>";
+    }
+
+    var userSpan = function () {
+      return "<span id=\"user\">" + $('.terminal').data('user') + "</span>";
+    }
+
+    var directorySpan = function () {
+      return "<span id=\"directory\">" + "</span>";
+    }
+
+    var dollarSpan = function () {
+      return "<span class=\"dollar\">$ </span>";
+    }
+
+    var cursor = function () {
+      return "<div class=\"cursor active\" id=\"cursor\"><span class=\"visible\">_</span></div>";
+    }
+
+    var textOutputSpan = function () {
+      return "<span class=\"textOutput\"></span>";
+    }
+
+    var termOutputSpan = function () {
+      return "<span class=\"termOutput\" style=\"display: none;\"></span>";
+    }
+
+    var rawNewLine = function () {
+      return "<div class=\"line active\">" + timestampSpan() + accountSpan() + userSpan() +
+        directorySpan() + dollarSpan() + textOutputSpan() + termOutputSpan() + cursor() + "</div>";
+    }
+
     // Next step, improve this, make extensible for more commands and recuse correctly
     // Should we be using vanilla instead of jquery?
     var parseEntry = function () {
@@ -29,20 +66,21 @@ var KeyBindings = function (keyCode, textField) {
     }
 
     var newLine = function () {
+      var $nextLine = $(rawNewLine());
       var $currentLine = $('.line.active');
-      var lineNumber = parseInt($currentLine.data('line'))
-      var $nextLine = $currentLine.clone().attr('data-line', lineNumber += 1);
-      $nextLine.find('span.termOutput').css('display', 'none');
-      $nextLine.find('.timestamp').html(timestamp());
+      if ($currentLine) {
+        var lineNumber = parseInt($currentLine.data('line'))
+        $nextLine.attr('data-line', lineNumber += 1);
+        $currentLine.removeClass('active');
+        $currentLine.find('.cursor').removeClass('active');
+      }
       $('.miniterm').append($nextLine);
-      $currentLine.removeClass('active');
       return $nextLine;
     }
 
     var newCursor = function (line) {
-      var $newCursor = $('#cursor').clone();
-      $('.cursor').map(function () { $(this).remove(); });
-      $newCursor.insertAfter(line.find('.textOutput'));
+      $('.cursor').not('.active').map(function () { $(this).remove(); });
+      $newCursor = $('.cursor.active');
       Blink($newCursor);
       return $newCursor;
     }
@@ -64,7 +102,7 @@ var KeyBindings = function (keyCode, textField) {
   }
 
   var appendText = function () {
-    $('.textOutput').last().html(textField.val());
+    $('.active span.textOutput').last().html(textField.val());
   }
 
   var bindings = {

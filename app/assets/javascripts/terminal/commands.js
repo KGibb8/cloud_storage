@@ -44,7 +44,8 @@ var TerminalCommands = {
   },
 
   'clear': function () {
-    $('.line').not('.active').remove();
+    $('.line').remove();
+    newLine();
     return "";
   }
 

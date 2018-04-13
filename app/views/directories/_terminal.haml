@@ -1,13 +1,14 @@
 = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Ubuntu+Mono'
 
-.terminal{ data: { account: current_account ? current_account.subdomain : '', user: current_user.email } }
+.terminal{ data: { account: current_account ? current_account.subdomain : nil, user: current_user ? current_user.email : nil } }
   .inline-block.miniterm
     %input{ type: 'text', id: 'terminalInput', autofocus: true }
-    .line.active{ data: { line: 1, account: current_account ? current_account.subdomain : '', user: current_user.email } }
+    .line.active{ data: { line: 1, account: current_account ? current_account.subdomain : '', user: current_user ? current_user.email : nil } }
       %span#timestamp.timestamp
       - if current_account
         %span#account #{current_account.subdomain}:
-      %span#user= current_user.email
+      - if current_user
+        %span#user= current_user.email
       %span#directory
       %span#dollar.dollar $
       %span.textOutput

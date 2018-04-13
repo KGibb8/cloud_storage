@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
   constraints DomainGenerator::SubdomainAbsent do
     root to: 'accounts#index'
-    resources :accounts, only: [:index, :create]
+    resources :accounts, only: [:create]
     resources :directories, only: [:index]
   end
 

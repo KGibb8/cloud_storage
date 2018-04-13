@@ -7,3 +7,7 @@
 
 - if directory.parent.present?
   = link_to '', directory_path(subdomain: current_account.subdomain, id: directory.parent.id), remote: true, class: 'parent-link'
+
+= form_for @directory, method: :post do |f|
+  = f.text_field :name
+  = f.submit 'Create'

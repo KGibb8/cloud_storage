@@ -1,7 +1,7 @@
 var KeyBindings = function (keyCode, textField) {
 
-  var inputField = $('#terminalInput');
-  var activeOutput =  $('.active span.textOutput');
+  var $inputField = $('#terminalInput');
+  var $activeOutput =  $('.active span.textOutput');
 
   var LineBreak = function () {
 
@@ -94,15 +94,15 @@ var KeyBindings = function (keyCode, textField) {
 
   var clearInput = function () {
     $('.active span.textOutput').empty();
-    $('#terminalInput')[0].value = '';
+    $inputField.val('');
   }
 
   var space = function () {
-    $('.textOutput').last().append('&nbsp;');
+    $activeOutput.append('&nbsp;');
   }
 
   var appendText = function () {
-    $('.active span.textOutput').last().html(textField.val());
+    $activeOutput.html(textField.val());
   }
 
   var bindings = {

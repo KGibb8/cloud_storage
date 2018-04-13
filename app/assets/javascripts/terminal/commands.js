@@ -24,23 +24,20 @@ var TerminalCommands = {
   },
 
   'rm': function (directory) {
+    var directory = $('.directory[data-name="' + directory + '"]');
+    var id = directory.data('id');
     $.ajax({
       type: 'DELETE',
-      url: '/directories'
+      url: '/directories/' + id
     }).done(function (response) {
-
+      directory.fadeOut();
+      setTimeout(function () { directory.remove(); }, 500);
     });
   },
 
   'mkdir': function (directory) {
-    $.post('/directories', {
-      data: {
-        task: 'mkdir',
-        directory: directory
-      }
-    }).done(function (response) {
 
-    });
+    return 'new feature to come';
   },
 
   'clear': function () {

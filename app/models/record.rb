@@ -6,7 +6,7 @@ class Record < ApplicationRecord
 
   # before_validation :search_for_owner
 
-  validates_presence_of :user, :directory
+  validates_presence_of :directory
 
   has_attached_file :attachment
 

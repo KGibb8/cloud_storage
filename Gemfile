@@ -5,31 +5,26 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'apartment'
 gem 'awesome_print'
-
-gem 'rails', '~> 5.0.2'
+gem 'devise'
+gem 'devise_invitable'
+gem 'dotenv'
+gem 'font-awesome-rails'
+gem 'hamburgers'
+gem 'haml-rails'
+gem 'jbuilder', '~> 2.5'
+gem 'jquery-rails'
+gem 'materialize-sass'
+gem 'paperclip'
 gem 'pg'
 gem 'puma', '~> 3.0'
-gem 'sass-rails', '~> 5.0'
-gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.2'
-
-gem 'jquery-rails'
-gem 'turbolinks', '~> 5'
-gem 'jbuilder', '~> 2.5'
+gem 'rails', '~> 5.0.2'
 gem 'redis', '~> 3.0'
-gem 'dotenv'
+gem 'sass-rails', '~> 5.0'
 gem 'sidekiq'
-
-gem 'devise'
-gem 'apartment'
-gem 'paperclip'
-
-# Views & Styling
-gem 'haml-rails'
-gem 'hamburgers'
-gem 'font-awesome-rails'
-gem 'materialize-sass'
+gem 'turbolinks', '~> 5'
+gem 'uglifier', '>= 1.3.0'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

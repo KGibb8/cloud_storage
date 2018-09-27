@@ -4,8 +4,6 @@ class Account < ApplicationRecord
   has_many :account_users, dependent: :destroy
   has_many :users, through: :account_users
 
-  belongs_to :owner, class_name: 'User', foreign_key: :owner_id
-
   after_create :create_tenant, :create_root_directory
   after_update :rename_schema, if: :subdomain_changed?
   after_destroy :remove_tenant
@@ -13,7 +11,6 @@ class Account < ApplicationRecord
   validate :subdomain_format
   validate :excluded_subdomain
   validates_presence_of :subdomain, :email
-  validates_uniqueness_of :subdomain, :email, :owner_id
 
   # #################
   # # Class Methods #
